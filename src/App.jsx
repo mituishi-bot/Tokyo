@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import * as d3 from "d3"; // D3.jsをインポート
-import tiikiData from "./tiiki.json"; // tiiki.jsonの読み込み
+import tiikiData from "./region.json"; // tiiki.jsonの読み込み
 
 function App() {
   useEffect(() => {
