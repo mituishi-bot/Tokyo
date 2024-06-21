@@ -82,7 +82,7 @@ function App() {
 
     const [era, month] = date.split(" ");
     let yearData = null;
-
+    console.log(tokyoData.area[1]);
     if (
       ["平成27年", "平成28年", "平成29年", "平成30年", "平成31年"].includes(era)
     ) {
@@ -90,7 +90,7 @@ function App() {
     } else if (["令和元年", "令和2年"].includes(era)) {
       yearData = tokyoData.area[0][selectedWard][era];
     }
-    console.log(yearData);
+
     if (yearData && yearData[month]) {
       setPopulationData(yearData[month]);
       updateMapColors(yearData[month]);
