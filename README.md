@@ -37,8 +37,7 @@ npm install @nivo/line
 # Reference
 
 使用したデータ
-
-[Data]: https://www.toukei.metro.tokyo.lg.jp/jsuikei/js-index2.htm  "Data"
+<https://www.toukei.metro.tokyo.lg.jp/jsuikei/js-index2.htm>
 
 # Author
 
