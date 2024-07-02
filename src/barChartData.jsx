@@ -1,0 +1,129 @@
+import React from "react";
+import { ResponsiveLine } from "@nivo/line";
+import * as d3 from "d3";
+
+const Chart = ({ selectedDistrictIndexes, populationData, maxY }) => {
+  // 選択された区のデータを取得
+  const selectedData = selectedDistrictIndexes.map(
+    (index) => populationData[index]
+  );
+
+  // 折れ線グラフ用のデータ
+  const chartData = selectedData.map((district) => ({
+    id: district.name,
+    data: district.data.map((item) => ({
+      x: new Date(item.year),
+      y: item.population,
+    })),
+  }));
+
+  // 23種類のカラー
+  const customColors = [
+    "#1f77b4",
+    "#aec7e8",
+    "#ff7f0e",
+    "#ffbb78",
+    "#2ca02c",
+    "#98df8a",
+    "#d62728",
+    "#ff9896",
+    "#9467bd",
+    "#c5b0d5",
+    "#8c564b",
+    "#c49c94",
+    "#e377c2",
+    "#f7b6d2",
+    "#7f7f7f",
+    "#c7c7c7",
+    "#bcbd22",
+    "#dbdb8d",
+    "#17becf",
+    "#9edae5",
+    "#393b79",
+    "#5254a3",
+    "#6b6ecf",
+    "#9c9ede",
+  ];
+
+  const colorScale = d3
+    .scaleOrdinal()
+    .domain(chartData.map((d) => d.id))
+    .range(customColors);
+
+  return (
+    <div style={{ height: "600px" }}>
+      <ResponsiveLine
+        data={chartData}
+        colors={colorScale}
+        lineWidth={3}
+        margin={{ top: 60, right: 50, bottom: 50, left: 150 }}
+        xScale={{
+          type: "time",
+          format: "%Y-%m",
+          precision: "month",
+          useUTC: false,
+        }}
+        xFormat="time:%Y-%m"
+        yScale={{
+          type: "linear",
+          min: "auto",
+          max: maxY, // プロップからの最大値を使用
+          stacked: false, // stackedをfalseに設定
+          reverse: false,
+        }}
+        axisBottom={{
+          format: "%Y-%m",
+          tickValues: "every 12 months",
+          legend: "年",
+          legendOffset: 46,
+          legendPosition: "middle",
+        }}
+        axisLeft={{
+          legend: "人口数",
+          legendOffset: -100,
+          legendPosition: "middle",
+        }}
+        enablePoints={true}
+        pointSize={5}
+        pointBorderWidth={1}
+        pointBorderColor={{ from: "color", modifiers: [] }}
+        pointLabelYOffset={-12}
+        useMesh={true}
+        tooltip={({ point }) => (
+          <div
+            style={{
+              background: "white",
+              padding: "9px 12px",
+              border: "1px solid #ccc",
+            }}
+          >
+            <strong>{point.serieId}</strong>
+            <br />
+            <strong>年: </strong>
+            {d3.timeFormat("%Y-%m")(point.data.x)}
+            <br />
+            <strong>人口数: </strong>
+            {point.data.yFormatted}
+          </div>
+        )}
+        legends={[
+          {
+            anchor: "top-left", //左上に配置
+            direction: "row", // 横に並べる
+            justify: false, // 項目の配置を均等
+            translateX: 0, // X方向に移動
+            translateY: -30, // Y方向に移動
+            itemsSpacing: 0, // 項目間のスペースを指定
+            itemDirection: "left-to-right", // 項目の並べ方向を指定
+            itemWidth: 80, // 各項目の幅
+            itemHeight: 20, // 各項目の高さ
+            symbolSize: 12, // サイズを指定
+            symbolShape: "square", // 形状を指定
+          },
+        ]}
+      />
+    </div>
+  );
+};
+
+export default Chart;
