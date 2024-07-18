@@ -2,13 +2,11 @@ import React from "react";
 import { ResponsiveLine } from "@nivo/line";
 import * as d3 from "d3";
 
-const Chart = ({ selectedDistrictIndexes, populationData }) => {
-  // 選択された区のデータを取得
+const KoronaChart = ({ selectedDistrictIndexes, koronaData }) => {
   const selectedData = selectedDistrictIndexes.map(
-    (index) => populationData[index]
+    (index) => koronaData[index]
   );
 
-  // 折れ線グラフ用のデータ
   const chartData = selectedData.map((district) => ({
     id: district.name,
     data: district.data.map((item) => ({
@@ -17,7 +15,6 @@ const Chart = ({ selectedDistrictIndexes, populationData }) => {
     })),
   }));
 
-  // 23種類のカラー
   const customColors = [
     "#1f77b4",
     "#aec7e8",
@@ -49,7 +46,6 @@ const Chart = ({ selectedDistrictIndexes, populationData }) => {
     .scaleOrdinal()
     .domain(chartData.map((d) => d.id))
     .range(customColors);
-
 
   const maxY = Math.max(
     ...selectedData.flatMap((district) =>
@@ -86,7 +82,7 @@ const Chart = ({ selectedDistrictIndexes, populationData }) => {
           legendPosition: "middle",
         }}
         axisLeft={{
-          legend: "人口数",
+          legend: "感染者数",
           legendOffset: -100,
           legendPosition: "middle",
         }}
@@ -109,7 +105,7 @@ const Chart = ({ selectedDistrictIndexes, populationData }) => {
             <strong>年: </strong>
             {d3.timeFormat("%Y-%m")(point.data.x)}
             <br />
-            <strong>人口数: </strong>
+            <strong>感染者数: </strong>
             {point.data.yFormatted}
           </div>
         )}
@@ -133,4 +129,4 @@ const Chart = ({ selectedDistrictIndexes, populationData }) => {
   );
 };
 
-export default Chart;
+export default KoronaChart;

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Chart from "./barChartData.jsx";
-import populationData from "/assets/populationData.json"; // データファイルのインポート
-import DrawMap from "./DrawMap";
-import "./App.css"; // CSSファイルのインポート
+import KoronaChart from "./KoronaChart.jsx"; 
+import populationData from "/assets/populationData.json";
+import koronaData from "/assets/korona.json";
+import "./App.css"; 
 
 const App = () => {
   const [selectedDistrictIndexes, setSelectedDistrictIndexes] = useState([]);
@@ -23,15 +24,24 @@ const App = () => {
 
   return (
     <div className="app-container">
-      <h2>東京23区のマップ</h2>
-      <DrawMap selectedDistrictIndexes={selectedDistrictIndexes} />
-      <h2>東京23区の折れ線グラフ</h2>
+      <h2>東京23区の人口推移(2015年11月~2024年6月)</h2>
       <div className="content-container">
         <div className="chart-container">
           {selectedDistrictIndexes.length > 0 && (
             <Chart
               selectedDistrictIndexes={selectedDistrictIndexes}
               populationData={populationData}
+            />
+          )}
+        </div>
+      </div>
+      <h2>コロナの感染者数推移(2020年3月~2022年9月)</h2>
+      <div className="content-container">
+        <div className="chart-container">
+          {selectedDistrictIndexes.length > 0 && (
+            <KoronaChart
+              selectedDistrictIndexes={selectedDistrictIndexes}
+              koronaData={koronaData}
             />
           )}
         </div>
