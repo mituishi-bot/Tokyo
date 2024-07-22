@@ -50,12 +50,15 @@ const Chart = ({ selectedDistrictIndexes, populationData }) => {
     .domain(chartData.map((d) => d.id))
     .range(customColors);
 
-
   const maxY = Math.max(
     ...selectedData.flatMap((district) =>
       district.data.map((item) => item.population)
     )
   );
+
+  // COVID-19期間の設定
+  const covidStart = new Date("2020-03");
+  const covidEnd = new Date("2022-09");
 
   return (
     <div style={{ height: "600px" }}>
@@ -115,17 +118,33 @@ const Chart = ({ selectedDistrictIndexes, populationData }) => {
         )}
         legends={[
           {
-            anchor: "top-left", //左上に配置
-            direction: "row", // 横に並べる
-            justify: false, // 項目の配置を均等
-            translateX: 0, // X方向に移動
-            translateY: -30, // Y方向に移動
-            itemsSpacing: 0, // 項目間のスペースを指定
-            itemDirection: "left-to-right", // 項目の並べ方向を指定
-            itemWidth: 80, // 各項目の幅
-            itemHeight: 20, // 各項目の高さ
-            symbolSize: 12, // サイズを指定
-            symbolShape: "square", // 形状を指定
+            anchor: "top-left",
+            direction: "row",
+            justify: false,
+            translateX: 0,
+            translateY: -30,
+            itemsSpacing: 0,
+            itemDirection: "left-to-right",
+            itemWidth: 80,
+            itemHeight: 20,
+            symbolSize: 12,
+            symbolShape: "square",
+          },
+        ]}
+        markers={[
+          {
+            axis: "x",
+            value: covidStart,
+            lineStyle: { stroke: "red", strokeWidth: 2 },
+            legend: "COVID-19 Start",
+            legendOrientation: "vertical",
+          },
+          {
+            axis: "x",
+            value: covidEnd,
+            lineStyle: { stroke: "red", strokeWidth: 2 },
+            legend: "COVID-19 End",
+            legendOrientation: "vertical",
           },
         ]}
       />

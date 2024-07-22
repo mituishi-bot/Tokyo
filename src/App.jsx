@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Chart from "./barChartData.jsx";
-import KoronaChart from "./KoronaChart.jsx"; 
+import KoronaChart from "./KoronaChart.jsx";
 import populationData from "/assets/populationData.json";
 import koronaData from "/assets/korona.json";
-import "./App.css"; 
+import "./App.css";
 
 const App = () => {
   const [selectedDistrictIndexes, setSelectedDistrictIndexes] = useState([]);
