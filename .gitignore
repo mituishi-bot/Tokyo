@@ -31,4 +31,4 @@ dist/
 
 # misc
 *.log
-node_modules
+node_modules/
