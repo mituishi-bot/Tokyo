@@ -75,6 +75,12 @@
   -webkit-background-clip: text;
   color: transparent;
   animation: bg 30s infinite;
+
+  width: 100%;
+  box-sizing: border-box;
+  overflow: visible;
+  height: auto;
+  min-height: 100px;
 }
 
 :root {

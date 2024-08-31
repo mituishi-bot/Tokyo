@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Chart from "./barChartData.jsx";
+import Chart from "./polylineChart.jsx";
 import KoronaChart from "./KoronaChart.jsx";
 import populationData from "/assets/populationData.json";
 import koronaData from "/assets/korona.json";
