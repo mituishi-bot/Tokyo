@@ -72,6 +72,16 @@ const Chart = ({ selectedDistrictIndexes, populationData }) => {
   // COVID-19期間の設定
   const covidStart = new Date("2020-03");
   const covidEnd = new Date("2022-09");
+  const backgroundLayer = ({ xScale, yScale }) => {
+    return (
+      <rect
+        x={xScale(covidStart)}
+        width={xScale(covidEnd) - xScale(covidStart)}
+        height={yScale.range()[0] - yScale.range()[1]}
+        fill="rgba(255, 0, 0, 0.2)"
+      />
+    );
+  };
 
   return (
     <div style={{ height: "600px" }}>
@@ -159,6 +169,17 @@ const Chart = ({ selectedDistrictIndexes, populationData }) => {
             legend: "COVID-19 End",
             legendOrientation: "vertical",
           },
+        ]}
+        layers={[
+          "grid",
+          "markers",
+          "areas",
+          "lines",
+          "slices",
+          "points",
+          "axes",
+          "legends",
+          backgroundLayer,
         ]}
       />
     </div>

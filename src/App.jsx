@@ -9,7 +9,6 @@ const App = () => {
   const [selectedDistrictIndexes, setSelectedDistrictIndexes] = useState([]);
   const [showPopulation, setShowPopulation] = useState(true);
   const [showKorona, setShowKorona] = useState(true);
-  const [diffData, setDiffData] = useState([]);
 
   // チェックボックスの選択状態が変更
   const handleDistrictChange = (index) => {
@@ -25,36 +24,54 @@ const App = () => {
     }
   };
 
+  // すべての選択をクリア
+  const clearSelections = () => {
+    setSelectedDistrictIndexes([]);
+  };
+
+  // すべての区を選択
+  const selectAllDistricts = () => {
+    const allDistrictIndexes = populationData.map((_, index) => index);
+    setSelectedDistrictIndexes(allDistrictIndexes);
+  };
+
   console.log("data", populationData);
 
   return (
     <div className="app-container">
       <div className="checkbox-container">
-        {populationData.map((district, index) => (
-          <label key={index} className="checkbox-label">
-            <input
-              type="checkbox"
-              value={index}
-              checked={selectedDistrictIndexes.includes(index)}
-              onChange={() => handleDistrictChange(index)}
-            />
-            <span className="checkmark"></span>
-            {district.name}
-          </label>
-        ))}
+        <div className="button-container">
+          {populationData.map((district, index) => (
+            <label key={index} className="checkbox-label">
+              <input
+                type="checkbox"
+                value={index}
+                checked={selectedDistrictIndexes.includes(index)}
+                onChange={() => handleDistrictChange(index)}
+              />
+              <span className="checkmark"></span>
+              {district.name}
+            </label>
+          ))}
+          <button className="botton-style" onClick={selectAllDistricts}>
+            すべて選択
+          </button>
+          <button className="botton-style" onClick={clearSelections}>
+            選択をクリア
+          </button>
+        </div>
       </div>
 
-      <h2>東京23区の人口推移(2015年11月~2024年6月)</h2>
       <div className="toggle-container">
-        <label>
+        <label className="toggle-margin">
           <input
             type="checkbox"
             checked={showPopulation}
             onChange={() => setShowPopulation(!showPopulation)}
           />
-          人口推移
+          増減推移
         </label>
-        <label>
+        <label className="toggle-margin">
           <input
             type="checkbox"
             checked={showKorona}
@@ -63,6 +80,8 @@ const App = () => {
           コロナ感染者数推移
         </label>
       </div>
+      <h2>東京23区の増減推移(2015年11月~2024年6月)</h2>
+
       <div className="content-container">
         <div className="chart-container">
           {showPopulation && selectedDistrictIndexes.length > 0 && (
