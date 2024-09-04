@@ -7,8 +7,11 @@ import "./App.css";
 
 const App = () => {
   const [selectedDistrictIndexes, setSelectedDistrictIndexes] = useState([]);
+  const [showPopulation, setShowPopulation] = useState(true);
+  const [showKorona, setShowKorona] = useState(true);
+  const [diffData, setDiffData] = useState([]);
 
-  //チェックボックスの選択状態が変更
+  // チェックボックスの選択状態が変更
   const handleDistrictChange = (index) => {
     const selectedIndex = selectedDistrictIndexes.indexOf(index);
     if (selectedIndex === -1) {
@@ -22,30 +25,10 @@ const App = () => {
     }
   };
 
+  console.log("data", populationData);
+
   return (
     <div className="app-container">
-      <h2>東京23区の人口推移(2015年11月~2024年6月)</h2>
-      <div className="content-container">
-        <div className="chart-container">
-          {selectedDistrictIndexes.length > 0 && (
-            <Chart
-              selectedDistrictIndexes={selectedDistrictIndexes}
-              populationData={populationData}
-            />
-          )}
-        </div>
-      </div>
-      <h2>コロナの感染者数推移(2020年3月~2022年9月)</h2>
-      <div className="content-container">
-        <div className="chart-container">
-          {selectedDistrictIndexes.length > 0 && (
-            <KoronaChart
-              selectedDistrictIndexes={selectedDistrictIndexes}
-              koronaData={koronaData}
-            />
-          )}
-        </div>
-      </div>
       <div className="checkbox-container">
         {populationData.map((district, index) => (
           <label key={index} className="checkbox-label">
@@ -59,6 +42,47 @@ const App = () => {
             {district.name}
           </label>
         ))}
+      </div>
+
+      <h2>東京23区の人口推移(2015年11月~2024年6月)</h2>
+      <div className="toggle-container">
+        <label>
+          <input
+            type="checkbox"
+            checked={showPopulation}
+            onChange={() => setShowPopulation(!showPopulation)}
+          />
+          人口推移
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={showKorona}
+            onChange={() => setShowKorona(!showKorona)}
+          />
+          コロナ感染者数推移
+        </label>
+      </div>
+      <div className="content-container">
+        <div className="chart-container">
+          {showPopulation && selectedDistrictIndexes.length > 0 && (
+            <Chart
+              selectedDistrictIndexes={selectedDistrictIndexes}
+              populationData={populationData}
+            />
+          )}
+        </div>
+      </div>
+      <h2>コロナの感染者数推移(2020年3月~2022年9月)</h2>
+      <div className="content-container">
+        <div className="chart-container">
+          {showKorona && selectedDistrictIndexes.length > 0 && (
+            <KoronaChart
+              selectedDistrictIndexes={selectedDistrictIndexes}
+              koronaData={koronaData}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

@@ -8,14 +8,29 @@ const Chart = ({ selectedDistrictIndexes, populationData }) => {
     (index) => populationData[index]
   );
 
-  // 折れ線グラフ用のデータ
-  const chartData = selectedData.map((district) => ({
-    id: district.name,
-    data: district.data.map((item) => ({
-      x: new Date(item.year),
-      y: item.population,
-    })),
-  }));
+  const chartData = [];
+  for (const district of selectedData) {
+    const data = [];
+    for (let i = 1; i < district.data.length; i++) {
+      console.log(
+        district.data[i - 1],
+        district.data[i],
+        district.data[i - 1] - district.data[i]
+      );
+      const item = {
+        x: new Date(district.data[i].year),
+        y: district.data[i].population - district.data[i - 1].population,
+      };
+      data.push(item);
+    }
+    const districtData = {
+      id: district.name,
+      data: data,
+    };
+    chartData.push(districtData);
+  }
+
+  console.log("xhart", chartData);
 
   // 23種類のカラー
   const customColors = [
@@ -51,9 +66,7 @@ const Chart = ({ selectedDistrictIndexes, populationData }) => {
     .range(customColors);
 
   const maxY = Math.max(
-    ...selectedData.flatMap((district) =>
-      district.data.map((item) => item.population)
-    )
+    ...chartData.flatMap((district) => district.data.map((item) => item.y))
   );
 
   // COVID-19期間の設定
