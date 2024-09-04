@@ -35,7 +35,10 @@ const App = () => {
     setSelectedDistrictIndexes(allDistrictIndexes);
   };
 
-  console.log("data", populationData);
+  // グレー背景かどうかを判定する関数
+  const shouldShowGreyBackground = (showChart) => {
+    return !(selectedDistrictIndexes.length > 0 && showChart);
+  };
 
   return (
     <div className="app-container">
@@ -80,9 +83,13 @@ const App = () => {
           コロナ感染者数推移
         </label>
       </div>
-      <h2>東京23区の増減推移(2015年11月~2024年6月)</h2>
 
-      <div className="content-container">
+      <h2>東京23区の増減推移(2015年11月~2024年6月)</h2>
+      <div
+        className={`content-container ${
+          shouldShowGreyBackground(showPopulation) ? "grey-background" : ""
+        }`}
+      >
         <div className="chart-container">
           {showPopulation && selectedDistrictIndexes.length > 0 && (
             <Chart
@@ -92,16 +99,19 @@ const App = () => {
           )}
         </div>
       </div>
+
       <h2>コロナの感染者数推移(2020年3月~2022年9月)</h2>
-      <div className="content-container">
-        <div className="chart-container">
-          {showKorona && selectedDistrictIndexes.length > 0 && (
-            <KoronaChart
-              selectedDistrictIndexes={selectedDistrictIndexes}
-              koronaData={koronaData}
-            />
-          )}
-        </div>
+      <div
+        className={`content-container ${
+          shouldShowGreyBackground(showKorona) ? "grey-background" : ""
+        }`}
+      >
+        {showKorona && selectedDistrictIndexes.length > 0 && (
+          <KoronaChart
+            selectedDistrictIndexes={selectedDistrictIndexes}
+            koronaData={koronaData}
+          />
+        )}
       </div>
     </div>
   );

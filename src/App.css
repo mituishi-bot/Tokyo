@@ -13,6 +13,18 @@
   align-items: center;
 }
 
+.grey-background {
+  background-color: grey;
+}
+
+.content-container {
+  padding: 20px;
+  min-height: 300px;
+
+}
+
+
+
 .botton-style {
   margin: 10px;
 }
