@@ -55,7 +55,62 @@ const KoronaChart = ({ selectedDistrictIndexes, koronaData }) => {
 
   // COVID-19期間の設定
   const covidStart = new Date("2020-03");
+  const firstWave = new Date("2020-07");
+  const secondWave = new Date("2020-11");
+  const thirdWave = new Date("2021-03");
+  const fourthWave = new Date("2021-07");
+  const fifthWave = new Date("2021-12");
+  const sixWave = new Date("2022-06");
   const covidEnd = new Date("2022-09");
+
+  const Wave = [
+    covidStart,
+    firstWave,
+    secondWave,
+    thirdWave,
+    fourthWave,
+    fifthWave,
+    sixWave,
+    covidEnd,
+  ];
+
+  const WaveName = [
+    "covidStart",
+    "firstWave",
+    "secondWave",
+    "thirdWave",
+    "fourthWave",
+    "fifthWave",
+    "sixWave",
+    "covidEnd",
+  ];
+
+  const WaveColor = [
+    "rgba(0,0, 255 ,0.5)",
+    "rgba(0,0, 255, 0.45)",
+    "rgba(0,0, 255, 0.4)",
+    "rgba(0,0, 255, 0.35)",
+    "rgba(0,0, 255, 0.3)",
+    "rgba(0,0, 255, 0.25)",
+    "rgba(0,0, 255, 0.2)",
+    "rgba(0,0, 255, 0.1)",
+  ];
+  const waveLayer = ({ xScale, yScale }) => {
+    return (
+      <>
+        {[0, 1, 2, 3, 4, 5, 6, 7].map((index) => (
+          <rect
+            key={index}
+            x={xScale(Wave[index])}
+            width={xScale(Wave[index + 1]) - xScale(Wave[index])}
+            height={yScale.range()[0] - yScale.range()[1]}
+            fill={WaveColor[index]}
+          />
+        ))}
+      </>
+    );
+  };
+
   const backgroundLayer = ({ xScale, yScale }) => {
     return (
       <rect
@@ -138,25 +193,20 @@ const KoronaChart = ({ selectedDistrictIndexes, koronaData }) => {
             symbolShape: "square", // 形状を指定
           },
         ]}
-        markers={[
-          {
+        markers={[0, 1, 2, 3, 4, 5, 6, 7].map((index) => {
+          const obj = {
             axis: "x",
-            value: covidStart,
-            lineStyle: { stroke: "red", strokeWidth: 2 },
-            legend: "COVID-19 Start",
+            value: Wave[index],
+            lineStyle: { stroke: "blue", strokeWidth: 2 },
+            legend: WaveName[index],
             legendOrientation: "vertical",
-          },
-          {
-            axis: "x",
-            value: covidEnd,
-            lineStyle: { stroke: "red", strokeWidth: 2 },
-            legend: "COVID-19 End",
-            legendOrientation: "vertical",
-          },
-        ]}
+          };
+          return obj;
+        })}
         layers={[
           "grid",
           backgroundLayer,
+          waveLayer,
           "markers",
           "axes",
           "areas",

@@ -90,14 +90,16 @@ const App = () => {
           shouldShowGreyBackground(showPopulation) ? "grey-background" : ""
         }`}
       >
-        <div className="chart-container">
-          {showPopulation && selectedDistrictIndexes.length > 0 && (
-            <Chart
-              selectedDistrictIndexes={selectedDistrictIndexes}
-              populationData={populationData}
-            />
-          )}
-        </div>
+        {shouldShowGreyBackground(showPopulation) && (
+          <h3 className="selection">選択してください</h3>
+        )}
+
+        {showPopulation && selectedDistrictIndexes.length > 0 && (
+          <Chart
+            selectedDistrictIndexes={selectedDistrictIndexes}
+            populationData={populationData}
+          />
+        )}
       </div>
 
       <h2>コロナの感染者数推移(2020年3月~2022年9月)</h2>
@@ -106,6 +108,10 @@ const App = () => {
           shouldShowGreyBackground(showKorona) ? "grey-background" : ""
         }`}
       >
+        {shouldShowGreyBackground(showKorona) && (
+          <h3 className="selection">選択してください</h3>
+        )}
+
         {showKorona && selectedDistrictIndexes.length > 0 && (
           <KoronaChart
             selectedDistrictIndexes={selectedDistrictIndexes}

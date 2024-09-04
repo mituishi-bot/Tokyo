@@ -20,10 +20,14 @@
 .content-container {
   padding: 20px;
   min-height: 300px;
-
 }
 
-
+.selection {
+  color: white;
+  font-size: 30px;
+  margin-left: 300px;
+  margin-top: 130px;
+}
 
 .botton-style {
   margin: 10px;
