@@ -53,6 +53,20 @@ const KoronaChart = ({ selectedDistrictIndexes, koronaData }) => {
     )
   );
 
+  // COVID-19期間の設定
+  const covidStart = new Date("2020-03");
+  const covidEnd = new Date("2022-09");
+  const backgroundLayer = ({ xScale, yScale }) => {
+    return (
+      <rect
+        x={xScale(covidStart)}
+        width={xScale(covidEnd) - xScale(covidStart)}
+        height={yScale.range()[0] - yScale.range()[1]}
+        fill="rgba(255, 0, 0, 0.2)"
+      />
+    );
+  };
+
   return (
     <div style={{ height: "600px" }}>
       <ResponsiveLine
@@ -123,6 +137,35 @@ const KoronaChart = ({ selectedDistrictIndexes, koronaData }) => {
             symbolSize: 12, // サイズを指定
             symbolShape: "square", // 形状を指定
           },
+        ]}
+        markers={[
+          {
+            axis: "x",
+            value: covidStart,
+            lineStyle: { stroke: "red", strokeWidth: 2 },
+            legend: "COVID-19 Start",
+            legendOrientation: "vertical",
+          },
+          {
+            axis: "x",
+            value: covidEnd,
+            lineStyle: { stroke: "red", strokeWidth: 2 },
+            legend: "COVID-19 End",
+            legendOrientation: "vertical",
+          },
+        ]}
+        layers={[
+          "grid",
+          backgroundLayer,
+          "markers",
+          "axes",
+          "areas",
+          "crosshair",
+          "lines",
+          "points",
+          "slices",
+          "mesh",
+          "legends",
         ]}
       />
     </div>

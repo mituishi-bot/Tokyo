@@ -172,14 +172,16 @@ const Chart = ({ selectedDistrictIndexes, populationData }) => {
         ]}
         layers={[
           "grid",
-          "markers",
-          "areas",
-          "lines",
-          "slices",
-          "points",
-          "axes",
-          "legends",
           backgroundLayer,
+          "markers",
+          "axes",
+          "areas",
+          "crosshair",
+          "lines",
+          "points",
+          "slices",
+          "mesh",
+          "legends",
         ]}
       />
     </div>
