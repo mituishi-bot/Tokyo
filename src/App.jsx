@@ -66,22 +66,27 @@ const App = () => {
       </div>
 
       <div className="toggle-container">
-        <label className="toggle-margin">
-          <input
-            type="checkbox"
-            checked={showPopulation}
-            onChange={() => setShowPopulation(!showPopulation)}
-          />
-          増減推移
-        </label>
-        <label className="toggle-margin">
-          <input
-            type="checkbox"
-            checked={showKorona}
-            onChange={() => setShowKorona(!showKorona)}
-          />
-          コロナ感染者数推移
-        </label>
+        <div className="button-container">
+          <label className="checkbox-label  toggle-margin">
+            <input
+              type="checkbox"
+              checked={showPopulation}
+              onChange={() => setShowPopulation(!showPopulation)}
+            />
+            <span className="checkmark"></span>
+            増減推移
+          </label>
+
+          <label className="checkbox-label toggle-margin">
+            <input
+              type="checkbox"
+              checked={showKorona}
+              onChange={() => setShowKorona(!showKorona)}
+            />
+            <span className="checkmark"></span>
+            コロナ感染者数推移
+          </label>
+        </div>
       </div>
 
       <h2>東京23区の増減推移(2015年11月~2024年6月)</h2>
