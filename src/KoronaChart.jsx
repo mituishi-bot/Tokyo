@@ -2,7 +2,7 @@ import React from "react";
 import { ResponsiveLine } from "@nivo/line";
 import * as d3 from "d3";
 
-const KoronaChart = ({ selectedDistrictIndexes, koronaData }) => {
+const KoronaChart = ({ selectedDistrictIndexes, koronaData, setYear }) => {
   const selectedData = selectedDistrictIndexes.map(
     (index) => koronaData[index]
   );
@@ -122,6 +122,10 @@ const KoronaChart = ({ selectedDistrictIndexes, koronaData }) => {
     );
   };
 
+  const handMouseOver = ({ data }) => {
+    setYear(data.xFormatted);
+  };
+
   return (
     <div style={{ height: "600px" }}>
       <ResponsiveLine
@@ -217,6 +221,7 @@ const KoronaChart = ({ selectedDistrictIndexes, koronaData }) => {
           "mesh",
           "legends",
         ]}
+        onMouseMove={handMouseOver}
       />
     </div>
   );

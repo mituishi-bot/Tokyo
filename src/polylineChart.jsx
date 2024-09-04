@@ -2,7 +2,7 @@ import React from "react";
 import { ResponsiveLine } from "@nivo/line";
 import * as d3 from "d3";
 
-const Chart = ({ selectedDistrictIndexes, populationData }) => {
+const Chart = ({ selectedDistrictIndexes, populationData, setYear }) => {
   // 選択された区のデータを取得
   const selectedData = selectedDistrictIndexes.map(
     (index) => populationData[index]
@@ -128,6 +128,10 @@ const Chart = ({ selectedDistrictIndexes, populationData }) => {
     );
   };
 
+  const handMouseOver = ({ data }) => {
+    setYear(data.xFormatted);
+  };
+
   return (
     <div style={{ height: "600px" }}>
       <ResponsiveLine
@@ -229,6 +233,7 @@ const Chart = ({ selectedDistrictIndexes, populationData }) => {
           "mesh",
           "legends",
         ]}
+        onMouseMove={handMouseOver}
       />
     </div>
   );

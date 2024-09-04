@@ -1,14 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Chart from "./polylineChart.jsx";
 import KoronaChart from "./KoronaChart.jsx";
 import populationData from "/assets/populationData.json";
 import koronaData from "/assets/korona.json";
+import koronaDetail from "/assets/koronaDetail.json";
 import "./App.css";
 
 const App = () => {
   const [selectedDistrictIndexes, setSelectedDistrictIndexes] = useState([]);
   const [showPopulation, setShowPopulation] = useState(true);
   const [showKorona, setShowKorona] = useState(true);
+  const [showYear, setYear] = useState(undefined);
+  const [koronaBackground, setBackground] = useState(undefined);
+
+  useEffect(() => {
+    const detail = koronaDetail.find((data) => {
+      data.year === showYear;
+    });
+    setBackground(detail);
+  }, [showYear]);
 
   const handleDistrictChange = (index) => {
     const selectedIndex = selectedDistrictIndexes.indexOf(index);
@@ -33,6 +43,8 @@ const App = () => {
   const shouldShowGreyBackground = (showChart) => {
     return !(selectedDistrictIndexes.length > 0 && showChart);
   };
+
+  console.log(koronaDetail);
 
   return (
     <div className="app-container">
@@ -104,6 +116,7 @@ const App = () => {
                 <Chart
                   selectedDistrictIndexes={selectedDistrictIndexes}
                   populationData={populationData}
+                  setYear={setYear}
                 />
               )}
             </div>
@@ -122,6 +135,7 @@ const App = () => {
                 <KoronaChart
                   selectedDistrictIndexes={selectedDistrictIndexes}
                   koronaData={koronaData}
+                  setYear={setYear}
                 />
               )}
             </div>
