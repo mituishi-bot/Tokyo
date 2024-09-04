@@ -134,7 +134,7 @@ const Chart = ({ selectedDistrictIndexes, populationData }) => {
         data={chartData}
         colors={colorScale}
         lineWidth={3}
-        margin={{ top: 60, right: 50, bottom: 50, left: 150 }}
+        margin={{ top: 40, right: 50, bottom: 50, left: 120 }}
         xScale={{
           type: "time",
           format: "%Y-%m",
