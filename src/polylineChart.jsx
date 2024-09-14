@@ -30,8 +30,6 @@ const Chart = ({ selectedDistrictIndexes, populationData, setYear }) => {
     chartData.push(districtData);
   }
 
-  console.log("xhart", chartData);
-
   // 23種類のカラー
   const customColors = [
     "#1f77b4",
@@ -193,14 +191,24 @@ const Chart = ({ selectedDistrictIndexes, populationData, setYear }) => {
             anchor: "top-left",
             direction: "row",
             justify: false,
-            translateX: 0,
-            translateY: -30,
+            translateX: -50,
+            translateY: -40,
             itemsSpacing: 0,
             itemDirection: "left-to-right",
-            itemWidth: 80,
-            itemHeight: 20,
-            symbolSize: 12,
+            itemWidth: 70,
+            itemHeight: 10,
+            symbolSize: 10,
             symbolShape: "square",
+            wrap: 20,
+            itemTextColor: "#000",
+            effects: [
+              {
+                on: "hover",
+                style: {
+                  itemTextColor: "#f00",
+                },
+              },
+            ],
           },
         ]}
         markers={[
@@ -208,14 +216,14 @@ const Chart = ({ selectedDistrictIndexes, populationData, setYear }) => {
             axis: "x",
             value: covidStart,
             lineStyle: { stroke: "blue", strokeWidth: 2 },
-            legend: "COVID-19 Start",
+            legend: "コロナ初",
             legendOrientation: "vertical",
           },
           {
             axis: "x",
             value: covidEnd,
             lineStyle: { stroke: "blue", strokeWidth: 2 },
-            legend: "COVID-19 End",
+            legend: "コロナ終",
             legendOrientation: "vertical",
           },
         ]}

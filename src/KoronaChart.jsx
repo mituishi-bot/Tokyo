@@ -7,13 +7,27 @@ const KoronaChart = ({ selectedDistrictIndexes, koronaData, setYear }) => {
     (index) => koronaData[index]
   );
 
-  const chartData = selectedData.map((district) => ({
-    id: district.name,
-    data: district.data.map((item) => ({
-      x: new Date(item.year),
-      y: item.population,
-    })),
-  }));
+  const chartData = [];
+  for (const district of selectedData) {
+    const data = [];
+    for (let i = 1; i < district.data.length; i++) {
+      console.log(
+        district.data[i - 1],
+        district.data[i],
+        district.data[i - 1] - district.data[i]
+      );
+      const item = {
+        x: new Date(district.data[i].year),
+        y: district.data[i].population - district.data[i - 1].population,
+      };
+      data.push(item);
+    }
+    const districtData = {
+      id: district.name,
+      data: data,
+    };
+    chartData.push(districtData);
+  }
 
   const customColors = [
     "#1f77b4",
@@ -48,13 +62,11 @@ const KoronaChart = ({ selectedDistrictIndexes, koronaData, setYear }) => {
     .range(customColors);
 
   const maxY = Math.max(
-    ...selectedData.flatMap((district) =>
-      district.data.map((item) => item.population)
-    )
+    ...chartData.flatMap((district) => district.data.map((item) => item.y))
   );
 
   // COVID-19期間の設定
-  const covidStart = new Date("2020-03");
+  const covidStart = new Date("2020-04");
   const firstWave = new Date("2020-07");
   const secondWave = new Date("2020-11");
   const thirdWave = new Date("2021-03");
@@ -75,14 +87,14 @@ const KoronaChart = ({ selectedDistrictIndexes, koronaData, setYear }) => {
   ];
 
   const WaveName = [
-    "covidStart",
-    "firstWave",
-    "secondWave",
-    "thirdWave",
-    "fourthWave",
-    "fifthWave",
-    "sixWave",
-    "covidEnd",
+    "コロナ初",
+    "第一波",
+    "第二波",
+    "第三波",
+    "第四波",
+    "第五波",
+    "第六波",
+    "コロナ終",
   ];
 
   const WaveColor = [
@@ -95,6 +107,7 @@ const KoronaChart = ({ selectedDistrictIndexes, koronaData, setYear }) => {
     "rgba(0,0, 255, 0.2)",
     "rgba(0,0, 255, 0.1)",
   ];
+
   const waveLayer = ({ xScale, yScale }) => {
     return (
       <>

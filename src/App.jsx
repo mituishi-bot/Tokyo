@@ -99,7 +99,7 @@ const App = () => {
 
         <div className="division">
           <div className="tokyo-division">
-            <h2>東京23区の増減推移(2015年11月~2024年6月)</h2>
+            <h2>東京23区の人口増減推移(2015年11月~2024年6月)</h2>
             <div
               className={`content-container ${
                 shouldShowGreyBackground(showPopulation)
@@ -120,7 +120,7 @@ const App = () => {
               )}
             </div>
 
-            <h2>コロナの感染者数推移(2020年3月~2022年9月)</h2>
+            <h2>コロナの感染者増減推移(2020年4月~2022年9月)</h2>
             <div
               className={`content-container ${
                 shouldShowGreyBackground(showKorona) ? "grey-background" : ""
@@ -154,11 +154,11 @@ const App = () => {
               <p>
                 感染対策:
                 <a
-                  href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000164708_00001.html"
+                  href="https://www.mhlw.go.jp/stf/wp/hakusyo/kousei/20/backdata/8-3-1.html"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  厚生労働省 - 新型コロナウイルス感染症関連情報
+                  厚生労働省-新型コロナウイルス感染症を巡るこれまでの経緯
                 </a>
               </p>
             </footer>
