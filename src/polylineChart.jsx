@@ -161,7 +161,7 @@ const Chart = ({ selectedDistrictIndexes, populationData, setYear }) => {
           legendPosition: "middle",
         }}
         axisLeft={{
-          legend: "人口数",
+          legend: "増減数",
           legendOffset: -100,
           legendPosition: "middle",
         }}

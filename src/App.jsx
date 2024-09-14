@@ -150,6 +150,18 @@ const App = () => {
             ) : (
               <p>年を選択してください。</p>
             )}
+            <footer>
+              <p>
+                感染対策:
+                <a
+                  href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000164708_00001.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  厚生労働省 - 新型コロナウイルス感染症関連情報
+                </a>
+              </p>
+            </footer>
           </div>
         </div>
       </div>
